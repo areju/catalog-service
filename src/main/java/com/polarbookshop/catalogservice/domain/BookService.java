@@ -43,7 +43,7 @@ public class BookService {
 	public Book editBookDetails(String isbn, Book book) {
 		Optional<Book> existingBook = bookRepository.findByIsbn(isbn);
 		if(existingBook.isEmpty()) {
-			return bookRepository.save(book);
+			throw new BookNotFoundException(isbn);
 		}
 		
 		var bookUpdate = new Book(existingBook.get().isbn(), book.title(), book.author(), book.price());

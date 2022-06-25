@@ -41,13 +41,16 @@ public class BookService {
 	}
 	
 	public Book editBookDetails(String isbn, Book book) {
-		Optional<Book> existingBook = bookRepository.findByIsbn(isbn);
-		if(existingBook.isEmpty()) {
-			throw new BookNotFoundException(isbn);
-		}
 		
-		var bookUpdate = new Book(existingBook.get().isbn(), book.title(), book.author(), book.price());
-		return bookRepository.save(bookUpdate);
+		return bookRepository.findByIsbn(isbn).map(existingBook -> {
+			var newBook = new Book(existingBook.id(), 
+					existingBook.isbn(),
+					book.author(),
+					book.title(),
+					book.price(),
+					book.version());
+			return bookRepository.save(newBook);
+		}).orElseGet(() ->  addBookToCatalog(book));
 	}
 	
 

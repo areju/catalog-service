@@ -36,7 +36,7 @@ dependencies {
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	runtimeOnly 'mysql:mysql-connector-java:8.0.15'
 	testImplementation "org.testcontainers:mysql:1.17.2"
-	implementation 'org.flywaydb:flyway-core'	
+	compileOnly "org.flywaydb:flyway-mysql"	
 }
 
 dependencyManagement {

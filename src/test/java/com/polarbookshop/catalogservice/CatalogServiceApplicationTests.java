@@ -7,9 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import com.polarbookshop.catalogservice.domain.Book;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("integration")
 class CatalogServiceApplicationTests {
 	
 	@Autowired
@@ -17,7 +19,7 @@ class CatalogServiceApplicationTests {
 
 	@Test
 	void whenPostRequestThenBookCreated() {
-		var expectedBook = new Book("1234567890123", "title", "author", 9.00);
+		var expectedBook =  Book.of("1234567890123", "title", "author", 9.00,"123 publisher");
 		
 		webTestClient.post().uri("/books").bodyValue(expectedBook)
 		.exchange().expectStatus().isCreated().expectBody(Book.class).value(

@@ -10,7 +10,7 @@ spring:
       - http://localhost:8888
       request-connect-timeout: 5000
       request-read-timeout: 5000
-      fail-fast: true
+      fail-fast: false
       retry:
         max-attempts: 6
         initial-interval: 1000
@@ -19,7 +19,7 @@ spring:
   datasource:
     username: "root"
     password: ""
-    url: "jdbc:mysql://localhost:3306/productdb_catalog?serverTimezone=UTC&useSSL=false"
+    url: "jdbc:mysql://172.17.0.2:3306/productdb_catalog?serverTimezone=UTC&useSSL=false"
     hikari:
       connection-timeout: 2000
       maximum-pool-size: 5
@@ -31,6 +31,11 @@ server:
     threads:
       max: 20
       min-spare: 5
-      
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+  
 polar:
   greeting: Welcome to the local book catalog!

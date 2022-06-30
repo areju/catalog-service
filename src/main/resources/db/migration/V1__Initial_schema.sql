@@ -1,5 +1,4 @@
 DROP TABLE if exists book;
-
 CREATE TABLE book (
   id                  BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   author              varchar(255) NOT NULL,

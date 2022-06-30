@@ -3,5 +3,4 @@ spring:
     username: root
     password: 
     url: jdbc:tc:mysql:8.0:///productdb_catalog
-  flyway:
-    enabled: true
+    

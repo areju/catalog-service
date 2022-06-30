@@ -1,7 +1,17 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.flywaydb:flyway-mysql:8.3.0'
+    }
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.7.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id "org.flywaydb.flyway" version "8.5.13"
 }
 
 group = 'com.polarbookshop.catalogservice'
@@ -37,6 +47,7 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java:8.0.29'
 	testImplementation "org.testcontainers:mysql:1.17.2"
 	compileOnly "org.flywaydb:flyway-mysql"	
+	compileOnly  "org.flywaydb:flyway-core:8.5.13"
 }
 
 dependencyManagement {
@@ -47,10 +58,21 @@ dependencyManagement {
 	}
 }
 
+flyway {
+	url = "jdbc:mysql://172.17.0.2:3306/"
+	driver = 'com.mysql.cj.jdbc.Driver'
+	user = "root"
+	password = ""
+	locations = ['classpath:db/migration']
+	schemas = ['productdb_catalog']
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
 
 bootRun {
-	systemProperty 'spring.profiles.active', 'testdata'
+	systemProperty 'spring.profiles.active', ['default','integration','testdata']
 }
+
+

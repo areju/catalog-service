@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.test.context.jdbc.Sql;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,7 +18,6 @@ class CatalogServiceApplicationTests {
     private WebTestClient webTestClient;
 
     @Test
-    @Sql({"/data/init.sql"})
     void whenGetRequestWithIdThenBookReturned() {
         var bookIsbn = "1231231230";
         var bookToCreate = Book.build(bookIsbn, "Title", "Author", 9.90);

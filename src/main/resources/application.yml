@@ -19,10 +19,17 @@ spring:
   datasource:
     username: "root"
     password: ""
-    url: "jdbc:mysql://172.17.0.2:3306/productdb_catalog?serverTimezone=UTC&useSSL=false"
+    url: "jdbc:mysql://localhost:3306/productdb_catalog?serverTimezone=UTC&useSSL=false"
     hikari:
       connection-timeout: 2000
       maximum-pool-size: 5
+  flyway:
+    url: dbc:mysql://localhost:3306/productdb_catalog?serverTimezone=UTC&useSSL=false"
+    user: root
+    password: 
+    locations:
+    - classpath:db/migration
+    enabled: true
 server:
   port: 9001
   tomcat:
@@ -30,7 +37,7 @@ server:
     keep-alive-timeout: 15s
     threads:
       max: 20
-      min-spare: 5
+      min-spare: 5 
 management:
   endpoints:
     web:
